@@ -1,4 +1,4 @@
-// app.js
+// App.js
 import Ball from './Ball.js';
 
 class App {
