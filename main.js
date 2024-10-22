@@ -1,3 +1,4 @@
+// main.js
 import App from './App.js';
 
-new App(document.querySelector('#Score'));
+new App(document.querySelector('#App'));
