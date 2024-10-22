@@ -29,7 +29,6 @@ class Ball {
     this.canvas.id = 'myCanvas';
     this.canvas.width = 800;
     this.canvas.height = 800;
-    this.canvas.style.border = '1px solid black';
     this.ctx = this.canvas.getContext('2d');
     this.$target.appendChild(this.canvas);
   }

@@ -14,3 +14,7 @@ body {
   display: flex; /* App 자체도 flex 컨테이너로 설정 */
   justify-content: center; /* 자식 요소를 가로로 중앙 정렬 */
 }
+
+#myCanvas {
+  border: 1px solid black;
+}
