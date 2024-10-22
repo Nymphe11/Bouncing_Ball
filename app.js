@@ -1,7 +1,11 @@
 // app.js
 import Ball from './Ball.js';
 
-const $target = document.querySelector('#Score');
+class App {
+  constructor($target) {
+    this.ball = new Ball(400, 100, 80, 'red', $target);
+    this.ball.animate();
+  }
+}
 
-const ball = new Ball(400, 100, 80, 'red', $target);
-ball.animate();
+export default App;
