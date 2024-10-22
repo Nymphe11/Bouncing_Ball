@@ -1,0 +1,16 @@
+/* style.css */
+body {
+  display: flex; /* 부모 요소를 flex 컨테이너로 설정 */
+  justify-content: center; /* 가로 방향 중앙 정렬 */
+  align-items: center; /* 세로 방향 중앙 정렬 */
+  height: 100vh; /* 전체 화면 높이 사용 */
+  margin: 0; /* 기본 마진 제거 */
+}
+
+#App {
+  flex: 1; /* 필요에 따라 설정 */
+  flex-direction: column;
+  align-items: center; /* 이 속성은 flex 컨테이너에만 적용됩니다. */
+  display: flex; /* App 자체도 flex 컨테이너로 설정 */
+  justify-content: center; /* 자식 요소를 가로로 중앙 정렬 */
+}
