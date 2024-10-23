@@ -24,3 +24,22 @@ body {
   font-size: 24px;
   font-weight: bold;
 }
+
+#canvasContainer {
+  position: relative;
+}
+
+#scoreModal {
+  width: 300px;
+  height: 200px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border: 1px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

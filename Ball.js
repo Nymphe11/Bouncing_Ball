@@ -1,4 +1,6 @@
 // Ball.js
+import { Modal } from './Modal.js';
+
 class Ball {
   constructor(x, y, radius, color, $target, score) {
     this.x = x;
@@ -9,11 +11,18 @@ class Ball {
     this.dy = 0; // Y 방향 속도 초기화
     this.dx = 0; // X 방향 속도 초기화
     this.$target = $target;
+    this.canvasContainer = document.createElement('div');
+    this.canvasContainer.id = 'canvasContaier';
 
     this.score = null;
 
+    this.isGameOver = false;
+
     // Canvas 설정을 constructor에서 한 번만 수행
     this.initializeCanvas();
+
+    // 모달 인스턴스 생성
+    this.modal = new Modal(this.canvasContainer);
 
     // 바운드된 이벤트 핸들러 생성
     this.boundAnimate = this.animate.bind(this);
@@ -21,15 +30,23 @@ class Ball {
 
     // 클릭 이벤트 리스너 등록
     this.canvas.addEventListener('mousedown', this.boundHandleClick);
+
+    // 모달 Replay 누르면 재시작
+    this.modal.restartButton.addEventListener('click', () =>
+      this.restartGame()
+    );
   }
 
   initializeCanvas() {
+    // this.canvasContainer = document.createElement('div');
+    // this.canvasContainer.id = 'canvasContaier';
+    this.$target.appendChild(this.canvasContainer);
     this.canvas = document.createElement('canvas');
     this.canvas.id = 'myCanvas';
     this.canvas.width = 800;
     this.canvas.height = 800;
     this.ctx = this.canvas.getContext('2d');
-    this.$target.appendChild(this.canvas);
+    this.canvasContainer.appendChild(this.canvas);
   }
 
   setScoreInstance(score) {
@@ -55,7 +72,11 @@ class Ball {
       this.dy = -this.dy * 0.9; // 튀는 속도 감소
       this.dx = 0.95 * this.dx;
 
-      this.score.setScore(0);
+      if (!this.isGameOver) {
+        this.modal.show(this.score.score); // 모달 표시
+        // this.score.setScore(0);
+      }
+      this.isGameOver = true;
     }
     // 벽에 튕기기
     if (this.x + this.radius > 800) {
@@ -82,8 +103,18 @@ class Ball {
 
       this.dy = (-30 * (dy + 1.5 * this.radius)) / (this.radius * 2);
 
-      this.score.setScore(this.score.score + 1);
+      if (!this.isGameOver) {
+        this.score.setScore(this.score.score + 1);
+      }
     }
+  }
+
+  restartGame() {
+    this.isGameOver = false; // 게임 오버 상태 초기화
+    this.score.setScore(0); // 점수 초기화
+    this.y = 100; // 공의 초기 위치 설정
+    this.dy = 0; // Y 방향 속도 초기화
+    this.dx = 0; // X 방향 속도 초기화
   }
 
   animate() {
