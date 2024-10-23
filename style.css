@@ -18,3 +18,9 @@ body {
 #myCanvas {
   border: 1px solid black;
 }
+
+#score {
+  margin-top: 20px; /* 캔버스와 점수 사이에 여백 추가 */
+  font-size: 24px;
+  font-weight: bold;
+}

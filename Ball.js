@@ -1,6 +1,6 @@
 // Ball.js
 class Ball {
-  constructor(x, y, radius, color, $target) {
+  constructor(x, y, radius, color, $target, score) {
     this.x = x;
     this.y = y;
     this.radius = radius;
@@ -10,11 +10,10 @@ class Ball {
     this.dx = 0; // X 방향 속도 초기화
     this.$target = $target;
 
-    this.score = 0;
+    this.score = null;
 
     // Canvas 설정을 constructor에서 한 번만 수행
     this.initializeCanvas();
-    this.initializeScore();
 
     // 바운드된 이벤트 핸들러 생성
     this.boundAnimate = this.animate.bind(this);
@@ -33,23 +32,8 @@ class Ball {
     this.$target.appendChild(this.canvas);
   }
 
-  initializeScore() {
-    this.scoreContainer = document.createElement('div');
-    this.scoreContainer.id = 'score';
-    this.$target.appendChild(this.scoreContainer);
-    this.render(); // 초기 점수 렌더링
-  }
-
-  setState(nextScore) {
-    if (this.score !== nextScore) {
-      // 점수가 변경될 때만 DOM 업데이트
-      this.score = nextScore;
-      this.render();
-    }
-  }
-
-  render() {
-    this.scoreContainer.textContent = `Score : ${this.score}`;
+  setScoreInstance(score) {
+    this.score = score; // App.js에서 전달받은 Score 객체 저장
   }
 
   draw(context) {
@@ -71,7 +55,7 @@ class Ball {
       this.dy = -this.dy * 0.9; // 튀는 속도 감소
       this.dx = 0.95 * this.dx;
 
-      this.setState(0);
+      this.score.setScore(0);
     }
     // 벽에 튕기기
     if (this.x + this.radius > 800) {
@@ -98,7 +82,7 @@ class Ball {
 
       this.dy = (-30 * (dy + 1.5 * this.radius)) / (this.radius * 2);
 
-      this.setState(this.score + 1);
+      this.score.setScore(this.score.score + 1);
     }
   }
 
